@@ -59,18 +59,28 @@ class Item:
             (1, 2)
         """
         return (self.now_x, self.now_y)
-    
+
     def get_next_pos(self, dir: tuple[int, int]) -> tuple[int, int]:
         """
-        次の時刻の座標を取得するメソッド
-        デフォルトでは現在の座標を返すため，子クラスでオーバーライドすることを想定している．
+        入力から移動方向を受け取って移動しようとする方向を計算して次の座標を返すメソッド
+        playerとenemyにのみ使用することを想定している.
+        引数にキー入力から受け取った次に移動したい方向をとり,
+        プレイヤーが次に移動したい座標を戻り値として出力する.
+
+        Args:
+            dir (tuple[int, int]): キー入力から受け取った次に移動したい方向.
+            (例:右に1マス移動したかったら(1,0)を受け取る)
 
         Returns:
-            tuple[int, int]: 現在の座標
+            tuple[int, int]: 次に移動したい座標(例:入力が(1,0)で現在のプレイヤーの座標が
+            (2,3)だった時,戻り値は(3,3))
 
         Examples:
             >>> item = Item(2, 3)
-            >>> item.get_next_pos([0,1])
+            >>> item.get_next_pos((1, 0))
+            (3, 3)
+            >>> item = Item(2, 3)
+            >>> item.get_next_pos((0, 1))
             (2, 4)
         """
         self.next_x = self.now_x + dir[0]
@@ -105,6 +115,7 @@ class Item:
             return
         self.now_x = self.next_x
         self.now_y = self.next_y
+
 
 if __name__ == "__main__":
     import doctest
