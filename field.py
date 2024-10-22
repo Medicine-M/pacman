@@ -20,8 +20,7 @@ class Field:
         Args:
             players (list[Player]): プレイヤーのリスト
         """
-        # self.players = players
-        pass
+        self.players = players
 
     def update(self) -> dict[str, list[Player]]:
         """
@@ -31,14 +30,14 @@ class Field:
             dict[str, list[Player]]: {アイテム種類 : アイテム情報のリスト}
 
         Examples:
-            >>> pac_field = Field(Player(20,20))
+            >>> pac_field = Field([Player(20,20)])
             >>> field_map = pac_field.update()
-            >>> print(field_map["players"][0].now_x)
+            >>> print(field_map["player"][0].now_x)
             20
         """
-        pass
-        # field_map = {"player": self.players}
-        # return field_map
+
+        field_map = {"player": self.players}
+        return field_map
 
 
 if __name__ == '__main__':

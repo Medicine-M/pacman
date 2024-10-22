@@ -23,10 +23,14 @@ class Display:
 
         Examples:
             >>> field = Display()
-            >>> field.update()
-            >>> ""
+            >>> field.update({"player":[Player(20,20)]})
+            a
         """
-        pass
+        # field_map = []
+        # for items in field_data:
+        #     for item in items:
+        #         field_map.append(item)
+        print("a")
 
 
 if __name__ == '__main__':

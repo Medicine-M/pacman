@@ -23,12 +23,13 @@ class Controller:
         Examples:
             >>> controller = Controller()
             >>> p = controller.wait_input()
-            1
             >>> print(p)
             1
 
         """
-        pass
+        key_input = input(">>>")
+        int_key_input = int(key_input)
+        return int_key_input
 
 
 if __name__ == '__main__':
