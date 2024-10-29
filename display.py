@@ -1,3 +1,5 @@
+import os
+from field import Field
 from player import Player
 
 
@@ -14,23 +16,33 @@ class Display:
         """
         pass
 
-    def update(self, field_data: dict[str, list[Player]]) -> None:
+    def update(self, field_data: Field) -> None:
         """
         画面表示の更新をする
+
+        Args:
+            field_data (Field):フィールドクラス
 
         Returns:
             None
 
         Examples:
-            >>> field = Display()
-            >>> field.update({"player":[Player(20,20)]})
-            a
+            >>> pac_field = Field([Player(0,0)],3,3)
+            >>> field_map = pac_field.generate_map()
+            >>> display = Display()
+            >>> display.update(pac_field)
+            😶　　
+            　　　
+            　　　
         """
-        # field_map = []
-        # for items in field_data:
-        #     for item in items:
-        #         field_map.append(item)
-        print("a")
+        os.system("clear")
+
+        field_map = field_data.f_map
+
+        for row in field_map:
+            for item in row:
+                print(item, end="")
+            print()
 
 
 if __name__ == '__main__':

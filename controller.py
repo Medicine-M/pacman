@@ -1,37 +1,54 @@
-class Controller:
-    """
-    Controllerクラス
-    プレイヤーからの入力を管理するクラスです。
-    """
+import sys
+import termios
 
-    def __init__(self) -> None:
-        """
-        Controllerクラスの初期化を行う関数
 
-        Args:
-            なし
-        """
-        pass
+class InputWithoutEnter:
+    '''エンターキーを押さずに入力を受け取るクラス'''
 
-    def wait_input(self) -> int:
-        """
-        キーボードからの入力を待ち、入力を数値として返す関数です。
+    def input_without_enter():
+        '''エンターキーを押さずに入力を受け取る
 
         Returns:
-            int: 0:上 1:右 2:下 3:左
+            int: 1:上 2:右 3:下 4:左 0:他
+        '''
 
-        Examples:
-            >>> controller = Controller()
-            >>> p = controller.wait_input()
-            >>> print(p)
-            1
+        # 標準入力のファイルディスクリプタを取得
+        fd = sys.stdin.fileno()
 
-        """
-        key_input = input(">>>")
-        int_key_input = int(key_input)
-        return int_key_input
+        # fdの端末属性をゲットする
+        # oldとnewには同じものが入る。
+        # newに変更を加えて、適応する
+        # oldは、後で元に戻すため
+        old = termios.tcgetattr(fd)
+        new = termios.tcgetattr(fd)
 
+        # new[3]はlflags
+        # ICANON(カノニカルモードのフラグ)を外す
+        new[3] &= ~termios.ICANON
+        # ECHO(入力された文字を表示するか否かのフラグ)を外す
+        new[3] &= ~termios.ECHO
 
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
+        try:
+            # 書き換えたnewをfdに適応する
+            termios.tcsetattr(fd, termios.TCSANOW, new)
+            # キーボードから入力を受ける。
+            # lfalgsが書き換えられているので、エンターを押さなくても次に進む。echoもしない
+            ch = sys.stdin.read(1)
+
+        finally:
+            # fdの属性を元に戻す
+            # 具体的にはICANONとECHOが元に戻る
+            termios.tcsetattr(fd, termios.TCSANOW, old)
+
+        input_dict = {
+            "w": 1,
+            "d": 2,
+            "s": 3,
+            "a": 4,
+        }
+        input_direction = 0
+        if input_dict[ch] is None:
+            input_direction = 0
+        else:
+            input_direction = input_dict[ch]
+        return input_direction

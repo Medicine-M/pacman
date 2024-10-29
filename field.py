@@ -10,34 +10,50 @@ class Field:
 
     Attributes:
         players (list[Player]): プレイヤーのリスト
+        f_size_x (int): x方向フィールドサイズ
+        f_size_y (int): y方向フィールドサイズ
+        f_map (list(list(str))): フィールドマップ
+        items (dict[str,Player]): フィールド内要素
     """
     def __init__(self,
                  players: list[Player],
+                 f_size_x: int,
+                 f_size_y: int,
                  ) -> None:
         """
         Fieldクラスの初期化を行う関数
 
         Args:
             players (list[Player]): プレイヤーのリスト
+            items (dict[str, Player]): アイテム全体のリスト
+            f_size_x (int): x方向フィールドサイズ
+            f_size_y (int): y方向フィールドサイズ
         """
         self.players = players
+        self.f_size_x = f_size_x
+        self.f_size_y = f_size_y
+        self.f_map = [["　" for _ in range(f_size_x)] for _ in range(f_size_y)]
+        self.items = dict()
+        self.items["players"] = players
 
-    def update(self) -> dict[str, list[Player]]:
+    def generate_map(self) -> list[list[str]]:
         """
-        プレイヤーの新しい情報を受け取りその時点でのマップを生成する。
+        プレイヤーの新しい情報からその時点でのマップを生成する。
 
         Returns:
-            dict[str, list[Player]]: {アイテム種類 : アイテム情報のリスト}
+            list[list[str]]: {アイテム種類 : アイテム情報のリスト}
 
         Examples:
-            >>> pac_field = Field([Player(20,20)])
-            >>> field_map = pac_field.update()
-            >>> print(field_map["player"][0].now_x)
-            20
+            >>> pac_field = Field([Player(1,1)],5,5)
+            >>> field_map = pac_field.generate_map()
+            >>> print(field_map[1][1])
+            😶
         """
 
-        field_map = {"player": self.players}
-        return field_map
+        for items in self.items:
+            for item in self.items[items]:
+                self.f_map[item.now_y][item.now_x] = item.icon
+        return self.f_map
 
 
 if __name__ == '__main__':
