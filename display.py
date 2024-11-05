@@ -1,6 +1,5 @@
 import os
 from field import Field
-from player import Player
 
 
 class Display:
@@ -9,14 +8,14 @@ class Display:
     Displayクラスは、画面にフィールドを表示します。
     """
 
-    def __init__(self) -> None:
+    def __init__(self, field_data: Field) -> None:
         """
         Displayクラスの初期化を行う関数
 
         """
-        pass
+        self.field_data = field_data
 
-    def update(self, field_data: Field) -> None:
+    def update(self) -> None:
         """
         画面表示の更新をする
 
@@ -27,17 +26,18 @@ class Display:
             None
 
         Examples:
+            >>> from player import Player
             >>> pac_field = Field([Player(0,0)],3,3)
             >>> field_map = pac_field.generate_map()
-            >>> display = Display()
-            >>> display.update(pac_field)
+            >>> display = Display(pac_field)
+            >>> display.update()
             😶　　
             　　　
             　　　
         """
         os.system("clear")
 
-        field_map = field_data.f_map
+        field_map = self.field_data.f_map
 
         for row in field_map:
             for item in row:

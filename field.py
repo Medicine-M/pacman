@@ -52,7 +52,8 @@ class Field:
 
         for items in self.items:
             for item in self.items[items]:
-                self.f_map[item.now_y][item.now_x] = item.icon
+                self.f_map[item.next_y][item.next_x] = item.icon
+                item.update_pos()
         return self.f_map
 
 
