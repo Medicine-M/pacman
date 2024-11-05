@@ -51,8 +51,5 @@ class Game:
             display = Display(self.field)
             self.field.generate_map()
             display.update()
-            
-            InputWithoutEnter.input_without_enter()
-
-            
-
+            for player in self.field.players:
+                player.get_next_pos(InputWithoutEnter.input_without_enter())

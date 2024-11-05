@@ -49,7 +49,10 @@ class Field:
             >>> print(field_map[1][1])
             😶
         """
-
+        self.f_map = [
+            ["　" for _ in range(self.f_size_x)]
+            for _ in range(self.f_size_y)
+            ]
         for items in self.items:
             for item in self.items[items]:
                 self.f_map[item.next_y][item.next_x] = item.icon
