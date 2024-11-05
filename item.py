@@ -60,7 +60,7 @@ class Item:
         """
         return (self.now_x, self.now_y)
 
-    def get_next_pos(self, dir: tuple[int, int]) -> tuple[int, int]:
+    def get_next_pos(self, input_number: int) -> tuple[int, int]:
         """
         入力から移動方向を受け取って移動しようとする方向を計算して次の座標を返すメソッド
         playerとenemyにのみ使用することを想定している.
@@ -68,21 +68,29 @@ class Item:
         プレイヤーが次に移動したい座標を戻り値として出力する.
 
         Args:
-            dir (tuple[int, int]): キー入力から受け取った次に移動したい方向.
-            (例:右に1マス移動したかったら(1,0)を受け取る)
+            dir (int): キー入力から受け取った次に移動したい方向.
+            (例:右に1マス移動したかったら2を受け取る)
 
         Returns:
-            tuple[int, int]: 次に移動したい座標(例:入力が(1,0)で現在のプレイヤーの座標が
+            tuple[int, int]: 次に移動したい座標(例:入力がdで現在のプレイヤーの座標が
             (2,3)だった時,戻り値は(3,3))
 
         Examples:
             >>> item = Item(2, 3)
-            >>> item.get_next_pos((1, 0))
+            >>> item.get_next_pos(2)
             (3, 3)
             >>> item = Item(2, 3)
-            >>> item.get_next_pos((0, 1))
+            >>> item.get_next_pos(1)
             (2, 4)
         """
+        dict = {
+            1: (0,  1),
+            2: (1,  0),
+            3: (0, -1),
+            4: (-1, 0)
+        }
+
+        dir = dict[input_number]
         self.next_x = self.now_x + dir[0]
         self.next_y = self.now_y + dir[1]
         return (self.next_x, self.next_y)
