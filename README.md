@@ -1,11 +1,8 @@
 # Pacman Project
-
-プロジェクトの概要をここに記載します．
-このREADMEは雛形ですので，適宜修正してください．
+パックマンに似たゲームを実行する
 
 ## Requirement
-- Python 3.9
-
+- Python 3.12.5
 
 ## Installation
 - 結果出力用ディレクトリを作成
@@ -24,14 +21,7 @@ pip install -r requirements.txt
 ```shell
 python main.py
 ```
-- デフォルトのパラメータ設定をjson出力．
-```shell
-python config.py  # parameters.jsonというファイルが出力される．
-```
-- 以下のように，上記で生成されるjsonファイルの数値を書き換えて，実行時のパラメータを指定できます．
-```shell
-python main.py -p parameters.json
-```
+
 - 詳しいコマンドの使い方は以下のように確認できます．
 ```shell
 python main.py -h
@@ -41,24 +31,27 @@ python main.py -h
 ## Parameter Settings
 
 - 指定できるパラメータは以下の通り．
-```json
-{
-    "param1": 0,    # ダミーのパラメータ1
-    "param2": {     # ダミーのパラメータ2
-        "k1": "v1",
-        "k2": "v2"
-    }
-}
+```shell
+プレイヤー人数
+フィールドのxサイズ      #フィールドの横の大きさ
+フィールドのyサイズ      #フィールドの縦の大きさ
 ```
 
 ## Directory Structure
 - プロジェクトの構成は以下の通り．
 ```shell
 .
+├── README.md           
 ├── config.py           # パラメータ定義
+├── controller.py       # 入力を受け取るファイル
+├── display.py          # 画面にフィールドを表示するファイル
+├── enemy.py            # エネミークラスのファイル
+├── field.py            # ある時点でのフィールドを生成するファイル
+├── game.py             # ゲームを実施するファイル
+├── item.py             # オブジェクトの親クラスのファイル
 ├── main.py             # 実行ファイル
-├── parameters.json     # パラメータ指定用ファイル
+├── player.py           # プレイヤークラスのファイル
+├── requirements.txt    
 ├── result              # 結果出力ディレクトリ
-│   └── 20211026_165841
 └── utils.py            # 共有関数群
 ```
