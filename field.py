@@ -47,7 +47,7 @@ class Field:
         プレイヤーの新しい情報からその時点でのマップを生成する。
 
         Returns:
-            list[list[str]]: {アイテム種類 : アイテム情報のリスト}
+            list[list[str]]: {マップ情報のリスト}
 
         Examples:
             >>> pac_field = Field([Player(1,1)],[Enemy(0,0)],5,5)
@@ -74,21 +74,14 @@ class Field:
                 else:
                     item.update_pos()
 
-                # 敵に触れた判定は座標がかぶった後に判定したいa
-                # if (self.f_map[item.next_y][item.next_x] != "　"):
-                #     if (
-                #         item.icon
-                #         == self.players[0].icon
-                #         and
-                #         self.f_map[item.next_y][item.next_x]
-                #         == self.enemies[0].icon
-                #         ):
+                # 敵に触れた判定は座標がかぶった後に判定したい
+                # if (self.f_map[item.now_y][item.now_x] != "　"):
+                #     if (item.icon == self.players[0].icon):
                 #         item.toggle_status()
-                #     else:
-                #         item.update_pos(True)
                 # else:
-                #     item.update_pos(False)
+                #     self.f_map[item.now_y][item.now_x] = item.icon
                 self.f_map[item.now_y][item.now_x] = item.icon
+
         return self.f_map
 
 

@@ -3,6 +3,7 @@ from enemy import Enemy
 from field import Field
 from display import Display
 from controller import InputWithoutEnter
+from event import Event
 import logging
 import random
 import threading
@@ -19,6 +20,7 @@ class Game:
         players (list[Player]): プレイヤーのリスト
         enemies (list[Enemy]): 敵のリスト
         field (Field): フィールドのインスタンス
+        event (Event): ゲーム内イベントのインスタンス
     """
     def __init__(self) -> None:
         """
@@ -61,12 +63,13 @@ class Game:
             field_size_x_int,
             field_size_y_int
             )
+        self.event = Event(self.field)
 
     def update_field(self):
         """
         ディスプレイを更新するループ
         """
-        while True:
+        while self.event.exit_flag is False:
             display = Display(self.field)
             self.field.generate_map()
             display.update()
@@ -76,7 +79,7 @@ class Game:
         """
         プレイヤー動作ループ
         """
-        while True:
+        while self.event.exit_flag is False:
             for player in self.field.players:
                 player.get_next_pos(InputWithoutEnter.input_without_enter())
 
@@ -84,7 +87,7 @@ class Game:
         """
         敵動作ループ
         """
-        while True:
+        while self.event.exit_flag is False:
             for enemy in self.field.enemies:
                 enemy.get_random_pos()
             time.sleep(1)
@@ -113,3 +116,9 @@ class Game:
         enemy_thread.join()
         player_thread.join()
         display_thread.join()
+
+        if (self.event.clear_flag is True):
+            print("ゲームクリア！！")
+
+        if (self.event.miss_flag is True):
+            print("ゲームオーバー")
