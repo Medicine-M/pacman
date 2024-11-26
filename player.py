@@ -23,6 +23,13 @@ class Player(Item):
         """
         super().__init__(x, y)
         self.icon = "😶"
+        self.status = True
+
+    def toggle_status(self):
+        """
+        playerがenemyと衝突したときplayerのアイコンを消す
+        """
+        self.status = False
 
 
 if __name__ == "__main__":
