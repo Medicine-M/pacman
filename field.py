@@ -1,4 +1,5 @@
 from player import Player
+from enemy import Enemy
 
 
 class Field:
@@ -10,13 +11,15 @@ class Field:
 
     Attributes:
         players (list[Player]): プレイヤーのリスト
+        enemies (list[Enemy]): 敵のリスト
         f_size_x (int): x方向フィールドサイズ
         f_size_y (int): y方向フィールドサイズ
         f_map (list(list(str))): フィールドマップ
-        items (dict[str,Player]): フィールド内要素
+        items (dict[str, list(Item)]): フィールド内のItemすべてのリスト
     """
     def __init__(self,
                  players: list[Player],
+                 enemies: list[Enemy],
                  f_size_x: int,
                  f_size_y: int,
                  ) -> None:
@@ -25,16 +28,19 @@ class Field:
 
         Args:
             players (list[Player]): プレイヤーのリスト
-            items (dict[str, Player]): アイテム全体のリスト
+            enemies (list[Enemy]): 敵のリスト
+            items (dict[str, list(Item)]): フィールド内のItemすべてのリスト
             f_size_x (int): x方向フィールドサイズ
             f_size_y (int): y方向フィールドサイズ
         """
         self.players = players
+        self.enemies = enemies
         self.f_size_x = f_size_x
         self.f_size_y = f_size_y
         self.f_map = [["　" for _ in range(f_size_x)] for _ in range(f_size_y)]
         self.items = dict()
         self.items["players"] = players
+        self.items["enemies"] = enemies
 
     def generate_map(self) -> list[list[str]]:
         """
@@ -44,7 +50,7 @@ class Field:
             list[list[str]]: {アイテム種類 : アイテム情報のリスト}
 
         Examples:
-            >>> pac_field = Field([Player(1,1)],5,5)
+            >>> pac_field = Field([Player(1,1)],[Enemy(0,0)],5,5)
             >>> field_map = pac_field.generate_map()
             >>> print(field_map[1][1])
             😶
@@ -55,8 +61,34 @@ class Field:
             ]
         for items in self.items:
             for item in self.items[items]:
-                self.f_map[item.next_y][item.next_x] = item.icon
-                item.update_pos()
+                if (
+                        item.next_x >= self.f_size_x
+                        or
+                        item.next_x < 0
+                        or
+                        item.next_y >= self.f_size_y
+                        or
+                        item.next_y < 0
+                        ):
+                    item.update_pos(True)
+                else:
+                    item.update_pos()
+
+                # 敵に触れた判定は座標がかぶった後に判定したいa
+                # if (self.f_map[item.next_y][item.next_x] != "　"):
+                #     if (
+                #         item.icon
+                #         == self.players[0].icon
+                #         and
+                #         self.f_map[item.next_y][item.next_x]
+                #         == self.enemies[0].icon
+                #         ):
+                #         item.toggle_status()
+                #     else:
+                #         item.update_pos(True)
+                # else:
+                #     item.update_pos(False)
+                self.f_map[item.now_y][item.now_x] = item.icon
         return self.f_map
 
 

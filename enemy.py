@@ -25,7 +25,31 @@ class Enemy(Item):
         super().__init__(x, y)
         self.icon = "👾"
 
-    def get_next_pos(self, dir: tuple[int, int]) -> tuple[int, int]:
+    # def get_next_pos(self, input_number: int = 0) -> tuple[int, int]:
+    #     """ランダムに動きたい方向を計算して次の座標を返すメソッド.
+    #     random.choice()を用いて上下左右のいずれかの方向を選択し、
+    #     現在座標に加えて次に移動したい座標を計算する.
+
+    #     Returns:
+    #         tuple[int, int]: 移動したい座標
+
+    #     Examples:
+    #         >>> enemy = Enemy(2, 3)
+    #         >>> possible_moves = [(2, 3), (3, 3), (1, 3), (2, 4), (2, 2)]
+    #         >>> next_move = enemy.get_next_pos()
+    #         >>> next_move in possible_moves
+    #         True
+
+    #     """
+    #     # 上下左右の方向を表す座標のリスト
+    #     directions = [(0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)]
+    #     # ランダムに方向を選択して次に移動したい座標を計算
+    #     dir = random.choice(directions)
+    #     self.next_x = self.now_x + dir[0]
+    #     self.next_y = self.now_y + dir[1]
+    #     return (self.next_x, self.next_y)
+    
+    def get_random_pos(self):
         """ランダムに動きたい方向を計算して次の座標を返すメソッド.
         random.choice()を用いて上下左右のいずれかの方向を選択し、
         現在座標に加えて次に移動したい座標を計算する.
@@ -36,7 +60,7 @@ class Enemy(Item):
         Examples:
             >>> enemy = Enemy(2, 3)
             >>> possible_moves = [(2, 3), (3, 3), (1, 3), (2, 4), (2, 2)]
-            >>> next_move = enemy.get_next_pos()
+            >>> next_move = enemy.get_random_pos()
             >>> next_move in possible_moves
             True
 
@@ -47,7 +71,6 @@ class Enemy(Item):
         dir = random.choice(directions)
         self.next_x = self.now_x + dir[0]
         self.next_y = self.now_y + dir[1]
-        return (self.next_x, self.next_y)
 
 
 if __name__ == "__main__":
