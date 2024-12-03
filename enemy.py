@@ -49,7 +49,7 @@ class Enemy(Item):
     #     self.next_y = self.now_y + dir[1]
     #     return (self.next_x, self.next_y)
     
-    def get_random_pos(self):
+    def get_random_pos(self) -> None:
         """ランダムに動きたい方向を計算して次の座標を返すメソッド.
         random.choice()を用いて上下左右のいずれかの方向を選択し、
         現在座標に加えて次に移動したい座標を計算する.

@@ -56,32 +56,27 @@ class Field:
             😶
         """
         self.f_map = [
-            ["　" for _ in range(self.f_size_x)]
-            for _ in range(self.f_size_y)
-            ]
+                    ["　" for _ in range(self.f_size_x)]
+                    for _ in range(self.f_size_y)
+                ]
         for items in self.items:
             for item in self.items[items]:
-                if (
-                        item.next_x >= self.f_size_x
-                        or
-                        item.next_x < 0
-                        or
-                        item.next_y >= self.f_size_y
-                        or
-                        item.next_y < 0
-                        ):
+                if (item.next_x >= self.f_size_x
+                        or item.next_x < 0
+                        or item.next_y >= self.f_size_y
+                        or item.next_y < 0):
                     item.update_pos(True)
                 else:
                     item.update_pos()
 
-                # 敵に触れた判定は座標がかぶった後に判定したい
                 # if (self.f_map[item.now_y][item.now_x] != "　"):
                 #     if (item.icon == self.players[0].icon):
                 #         item.toggle_status()
                 # else:
                 #     self.f_map[item.now_y][item.now_x] = item.icon
                 self.f_map[item.now_y][item.now_x] = item.icon
-
+        # if (self.players[0].icon not in self.f_map):
+        #     self.players[0].toggle_status()
         return self.f_map
 
 

@@ -25,7 +25,7 @@ class Event:
         self.miss_flag = False
         self.exit_flag = False
 
-    def check_clear(self):
+    def check_clear(self) -> None:
         """
         クリア条件を判定し、クリアフラグをTrueにし、ゲーム終了
         
@@ -44,7 +44,7 @@ class Event:
             self.clear_flag = True
             self.exit_flag = True
 
-    def check_miss(self):
+    def check_miss(self) -> None:
         """
         失敗条件を判定し、ゲーム失敗フラグをTrueにし、ゲーム終了
 
