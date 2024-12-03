@@ -31,7 +31,7 @@ class Game:
         self.players = list[Player]
         self.enemies = list[Enemy]
 
-    def setup(self):
+    def setup(self) -> None:
         """
         ゲームのセットアップを行う
         """
@@ -65,17 +65,19 @@ class Game:
             )
         self.event = Event(self.field)
 
-    def update_field(self):
+    def update_field(self) -> None:
         """
         ディスプレイを更新するループ
         """
         while self.event.exit_flag is False:
             display = Display(self.field)
             self.field.generate_map()
+            self.event.check_clear()
+            self.event.check_miss()
             display.update()
             time.sleep(0.01)
 
-    def player_move(self):
+    def player_move(self) -> None:
         """
         プレイヤー動作ループ
         """
@@ -83,7 +85,7 @@ class Game:
             for player in self.field.players:
                 player.get_next_pos(InputWithoutEnter.input_without_enter())
 
-    def enemy_move(self):
+    def enemy_move(self) -> None:
         """
         敵動作ループ
         """
@@ -92,7 +94,7 @@ class Game:
                 enemy.get_random_pos()
             time.sleep(1)
 
-    def play(self):
+    def play(self) -> None:
         """
         ゲームを始める
         """

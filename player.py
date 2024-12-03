@@ -25,7 +25,7 @@ class Player(Item):
         self.icon = "😶"
         self.status = True
 
-    def toggle_status(self):
+    def toggle_status(self) -> None:
         """
         playerがenemyと衝突したときplayerのアイコンを消す
         """

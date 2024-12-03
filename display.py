@@ -53,6 +53,7 @@ class Display:
         for _ in range(self.field_data.f_size_x):
             print("🔲", end="")
         print("🔲🔲")
+        print(self.field_data.players[0].status)
 
 
 if __name__ == '__main__':

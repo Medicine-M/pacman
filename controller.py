@@ -5,7 +5,7 @@ import termios
 class InputWithoutEnter:
     '''エンターキーを押さずに入力を受け取るクラス'''
 
-    def input_without_enter():
+    def input_without_enter() -> int:
         '''エンターキーを押さずに入力を受け取る
 
         Returns:
@@ -48,7 +48,7 @@ class InputWithoutEnter:
         }
         input_direction = 0
         if input_dict[ch] is None:
-            input_direction = 0
+            return 0
         else:
             input_direction = input_dict[ch]
         return input_direction
