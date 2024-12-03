@@ -24,6 +24,7 @@ class Player(Item):
         super().__init__(x, y)
         self.icon = "😶"
         self.status = True
+        self.dir = 1
 
     def toggle_status(self) -> None:
         """

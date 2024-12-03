@@ -12,6 +12,7 @@ class Item:
        next_x(int) : 次の時刻でのx座標
        next_y(int) : 次の時刻でのy座標
        icon(str) : 表示されるアイテムのアイコン
+       dir(int) : itemの向いている方向
     """
 
     def __init__(self, x, y) -> None:
@@ -44,6 +45,7 @@ class Item:
         self.next_x = x
         self.next_y = y
         self.icon = ""
+        self.dir = 1
 
     def get_pos(self) -> tuple[int, int]:
         """
@@ -68,7 +70,7 @@ class Item:
         プレイヤーが次に移動したい座標を戻り値として出力する.
 
         Args:
-            dir (int): キー入力から受け取った次に移動したい方向.
+            input_number(int): キー入力から受け取った次に移動したい方向.
             (例:右に1マス移動したかったら2を受け取る)
 
         Returns:
@@ -93,6 +95,7 @@ class Item:
         dir = dict[input_number]
         self.next_x = self.now_x + dir[0]
         self.next_y = self.now_y + dir[1]
+        self.dir = input_number
         return (self.next_x, self.next_y)
 
     def update_pos(self, stuck: bool = False) -> None:
