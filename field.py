@@ -55,6 +55,7 @@ class Field:
             >>> print(field_map[1][1])
             😶
         """
+        prev_map = self.f_map
         self.f_map = [
                     ["　" for _ in range(self.f_size_x)]
                     for _ in range(self.f_size_y)
@@ -67,16 +68,13 @@ class Field:
                         or item.next_y < 0):
                     item.update_pos(True)
                 else:
+                    if (item.icon == self.players[0].icon):
+                        if (prev_map[item.next_y][item.next_x] == self.enemies[0].icon):
+                            item.update_pos()
+                            item.toggle_status()
                     item.update_pos()
-
-                # if (self.f_map[item.now_y][item.now_x] != "　"):
-                #     if (item.icon == self.players[0].icon):
-                #         item.toggle_status()
-                # else:
-                #     self.f_map[item.now_y][item.now_x] = item.icon
                 self.f_map[item.now_y][item.now_x] = item.icon
-        # if (self.players[0].icon not in self.f_map):
-        #     self.players[0].toggle_status()
+
         return self.f_map
 
 
